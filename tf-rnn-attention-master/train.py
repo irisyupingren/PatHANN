@@ -29,7 +29,7 @@ SEQUENCE_LENGTH = 200
 EMBEDDING_DIM = 100
 HIDDEN_SIZE = 150
 ATTENTION_SIZE = 50
-KEEP_PROB = 0.8
+KEEP_PROB = 1
 BATCH_SIZE = 64
 NUM_EPOCHS = 100  # Model easily overfits without pre-trained words embeddings, that's why train for a few epochs
 DELTA = 0.5
@@ -81,7 +81,7 @@ rnn_outputs, _ = bi_rnn(GRUCell(HIDDEN_SIZE), GRUCell(HIDDEN_SIZE),
 attention_output, alphas = attention(rnn_outputs, ATTENTION_SIZE, return_alphas=True)
 
 # Dropout
-# drop = tf.nn.dropout(attention_output, keep_prob_ph)
+drop = tf.nn.dropout(attention_output, keep_prob_ph)
 
 # Fully connected layer
 W = tf.Variable(tf.truncated_normal([HIDDEN_SIZE * 2, 1], stddev=0.1))  # Hidden size is multiplied by 2 for Bi-RNN
